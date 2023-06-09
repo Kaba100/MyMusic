@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MyMusic.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MyMusic.Page.NowPlaying"
+             Title="NowPlaying"
+             Shell.NavBarIsVisible="False">
+    <!--<ContentPage.BindingContext>
+        <vm:NowlPlaying/>
+    </ContentPage.BindingContext>-->
+    
+    <Grid RowDefinitions="0.85*,0.15*" Background="#FFF">
+        <Grid Grid.Row="0" RowDefinitions="0.6*,0.4*">
+            <Border Grid.Row="0" Background="#A6A6A6" StrokeThickness="0" TranslationY="-13.5">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,0,70,0"/>
+                </Border.StrokeShape>
+                <Grid Grid.Row="1" ColumnDefinitions="0.15*,0.7*,0.15*">
+                    <Image Source="dotnet_bot.svg" HeightRequest="4500" WidthRequest="300" Margin="300,0,0,0" HorizontalOptions="FillAndExpand"/>
+                    <Image Grid.Column="0" Source="dotnet_bot.svg" VerticalOptions="Start" HeightRequest="18" Margin="0,25,0,0"/>
+                    <Label Grid.Column="1" Text="NOW PLAYING"  HorizontalOptions="CenterAndExpand" TextColor="White" Margin="0,25,0,0"/>
+                    <Image Grid.Column="2" Source="dotnet_bot.svg" VerticalOptions="Start" HeightRequest="18" Margin="0,25,0,0"/>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="1">
+                <Border Background="#A6A6A6" StrokeThickness="0"  TranslationY="-14.8">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0"/>
+                    </Border.StrokeShape>
+                    
+                </Border>
+                <Border Background="#fff" StrokeThickness="0" TranslationY="43">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0"/>
+                    </Border.StrokeShape>
+                </Border>
+                <Border Background="#FBF0DF" StrokeThickness="0" TranslationY="99">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0"/>
+                    </Border.StrokeShape>
+                </Border>
+                <Border Grid.Row="1" Background="#fff" StrokeThickness="0" TranslationY="-15">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0,65,65,65"/>
+                    </Border.StrokeShape>
+                    <Grid>
+                        <toolkit:MediaElement x:Name="mlmt" MaximumHeightRequest="1" Loaded="Mlmt_Loaded" MaximumWidthRequest="1" ShouldShowPlaybackControls="False"/>
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                            <Label Grid.Row="0" Text="{Binding Position, StringFormat='{0:mm\\:ss}'}" HeightRequest="23"
+                                   Margin="15,0,0,0" HorizontalOptions="Start"/>
+                            <Label Grid.Row="0" Text="{Binding Duration, StringFormat='{0:mm\\:ss}'}" HeightRequest="23"
+                                   Margin="0,0,40,0" HorizontalOptions="End"/>
+                            <Slider Grid.Row="1" Value="{Binding Position.TotalSeconds}"  MaximumTrackColor="#EADFD0" 
+                                    ThumbColor="#8100EC" MinimumTrackColor="#8100EC" Maximum="{Binding Maximum}" />
+                            <Label Grid.Row="2" Text="{Binding SelectedSong.SongTitle}" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold"
+                                   FontFamily="GilroyBold"/>
+                            <Label  Grid.Row="3" Text="{Binding SelectedSong.Artiste}" FontSize="10" HorizontalOptions="Center"
+                                    FontAttributes="None"/>
+                            <Image  Source="previous.png" Grid.Row="4" HorizontalOptions="Start" Margin="45,25,0,0" HeightRequest="38" WidthRequest="38">
+                                <Image.Clip>
+                                    <EllipseGeometry RadiusX="19" RadiusY="19" Center="19,19"/>
+                                </Image.Clip>
+                            </Image>
+                            <Border Grid.Row="4" WidthRequest="100" TranslationY="15" HeightRequest="100" BackgroundColor="#8100ec" StrokeShape="RoundRectangle 50,50,50,50" VerticalOptions="Center" HorizontalOptions="Center">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PlayCommand}"/>
+                                </Border.GestureRecognizers>
+                                <Image Grid.Row="4" Source="{Binding PlayIcon}" Aspect="AspectFill"  HorizontalOptions="Center" 
+                                   WidthRequest="30" HeightRequest="40" Margin="10,0,0,0" />
+
+                            </Border>
+                            <Image Grid.Row="4" Source="next.png" HorizontalOptions="End" Margin="0,25,45,0" HeightRequest="38" WidthRequest="38">
+                                <Image.Clip>
+                                    <EllipseGeometry RadiusX="19" RadiusY="19" Center="19,19"/>
+                                </Image.Clip>
+                            </Image>
+                        </Grid>
+                       
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Border TranslationY="38" StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="100,100,0,0"/>
+                </Border.StrokeShape>
+                <Grid RowDefinitions="0.4*,0.6*">
+                    <Image Grid.Row="0" Source="dotnet_bot.svg" HeightRequest="23" Margin="0,0,0,15"/>
+                    <Label Grid.Row="1" Text="LYRICS" Background="#fff" HeightRequest="45" FontAttributes="None" 
+                           Margin="0,0,0,45" HorizontalOptions="CenterAndExpand" TextColor="#A59E92"/>
+                </Grid>
+                
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

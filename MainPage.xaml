@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MyMusic.ViewModels"
+             x:Class="MyMusic.MainPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="0.86*,0.14*">
+        <Border Grid.Row="0" Background="#FBF0DF" StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,0,65,0"/>
+            </Border.StrokeShape>
+
+
+            <Grid RowDefinitions="Auto,Auto,Auto">
+                <Grid Grid.Row="0" HeightRequest="95" RowDefinitions="Auto,Auto">
+                    <Image Grid.Row="0" HeightRequest="25" Source="dotnet_bot.svg" HorizontalOptions="Start" Margin="10,8,0,0"/>
+                    <Image Grid.Row="0" HeightRequest="25" Source="dotnet_bot.svg" HorizontalOptions="End" Margin="0,8,10,0"/>
+                    <Label Grid.Row="1" Text="Browse" FontSize="18" FontAttributes="None" FontFamily="GilroyBold" 
+                           TextColor="Black" HorizontalOptions="Start" Margin="10,20,0,0"/>
+                </Grid>
+                <Grid Grid.Row="1" RowDefinitions="Auto,Auto">
+                    <Grid Grid.Row="0" RowDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Text="Popular playlist" FontSize="15" FontAttributes="Bold" HorizontalOptions="Start"
+                               Margin="10,0,0,10" TextColor="#000"/>
+                        <Grid Grid.Row="1">
+                            <CollectionView ItemsSource="{Binding Populars} ">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Frame HeightRequest="120" WidthRequest="95" Margin="10,3,0,0" Padding="0">
+                                                <Image Source="{Binding Image}"  Aspect="AspectFill"/>
+                                            </Frame>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2" RowDefinitions="*,Auto">
+                    <Label Grid.Row="0" Text="Playlist" FontSize="18" FontAttributes="Bold" HorizontalOptions="Start"
+                           Margin="10,0,0,0" TextColor="#000"/>
+                    <Grid Grid.Row="1">
+                        <CollectionView HeightRequest="250" ItemsSource="{Binding Playlists}" 
+                                        SelectionChangedCommand="{Binding SelectedItemCommand}" 
+                                        SelectionChangedCommandParameter="{Binding SelectedSong}"
+                                        SelectedItem="{Binding SelectedSong}" SelectionMode="Single">
+                            
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border StrokeShape="RoundRectangle 8,8,8,8" HeightRequest="60" WidthRequest="350" Margin="10,5" InputTransparent="True">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodels:PopularVM}},
+                                                Path=SelectedItemCommand}" CommandParameter="{Binding .}"/>
+                                        </Border.GestureRecognizers>
+                                        <Grid RowDefinitions="0.55*,0.2*,0.35*"  HeightRequest="60" WidthRequest="339" ColumnDefinitions="0.02*,0.06*,0.02*">
+                                            <Image Grid.Column="0" Grid.RowSpan="3" HeightRequest="34" Margin="0,0,0,10" WidthRequest="34" Source="{Binding Image}">
+                                                <Image.Clip>
+                                                    <EllipseGeometry RadiusX="17" RadiusY="17" Center="17,17"/>
+                                                </Image.Clip>
+                                            </Image>
+                                            <Label Grid.Column="1" Grid.Row="0" Margin="0,6,0,0"  FontAttributes="Bold" FontSize="15" 
+                                                   Text="{Binding SongTitle}" TextColor="#333"/>
+                                            <Label Grid.Column="1" Grid.Row="2" FontSize="9" Text="{Binding Artiste }" TextColor="#B0A99D"/>
+                                            <Label Grid.Column="2" Grid.Row="1" Margin="40,0,0,0" Text="{Binding Duration }" FontSize="8" TextColor="#333"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Border StrokeThickness="0" Background="#FBF0DF" TranslationY="-2">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="90"/>
+                </Border.StrokeShape>
+            </Border>
+            <Border StrokeThickness="0" Background="#FBF0DF" TranslationY="-2">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="90,0,0,0"/>
+                </Border.StrokeShape>
+            </Border>
+            <Border  Background="#fff" TranslationY="-2" StrokeThickness="0" >
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="105,85,0,0"/>
+                </Border.StrokeShape>
+
+                <CollectionView ItemsSource="{Binding NowPlayings }">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="Transparent" HeightRequest="108" Background="#fff">
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  />
+                                </Frame.GestureRecognizers>
+                                <Grid RowDefinitions="Auto,1.5*" ColumnDefinitions="0.02*,0.06*,0.02*">
+                                    <Image Grid.Column="0" Grid.RowSpan="2" HeightRequest="35" WidthRequest="35" 
+                                           Margin="0,0,10,0" Source="{Binding Picture}">
+                                        <Image.Clip>
+                                            <EllipseGeometry RadiusX="17.5" RadiusY="17.5" Center="17.5,17.5"/>
+                                        </Image.Clip>
+                                    </Image>
+                                    <Label Grid.Column="1" Grid.Row="0" FontAttributes="Bold" HorizontalOptions="Start" 
+                                           Margin="0,0,15,0" Text="{Binding Music }"/>
+                                    <Label Grid.Column="1" Grid.Row="1" Text="{Binding  Artiste}"/>
+                                    <Image Grid.Column="2" Grid.RowSpan="2" HeightRequest="20" WidthRequest="20" Source="{Binding Image}">
+                                        <Image.Clip>
+                                            <EllipseGeometry RadiusX="10" RadiusY="10" Center="10,10"/>
+                                        </Image.Clip>
+                                    </Image>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+            
+        </Grid>
+        
+    </Grid>
+</ContentPage>
